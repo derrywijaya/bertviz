@@ -72,7 +72,7 @@ def load_tf_weights_in_bert(model, tf_checkpoint_path):
     names = []
     arrays = []
     for name, shape in init_vars:
-        print("Loading TF weight {} with shape {}".format(name, shape))
+        print("Loading TFWW weight {} with shape {}".format(name, shape))
         array = tf.train.load_variable(tf_path, name)
         names.append(name)
         arrays.append(array)
