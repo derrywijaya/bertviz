@@ -72,13 +72,12 @@ def load_tf_weights_in_bert(model, tf_checkpoint_path):
     names = []
     arrays = []
     for name, shape in init_vars:
-        #print("Loading wakawaka weight {} with shape {}".format(name, shape))
+        print("Loading TF weight {} with shape {}".format(name, shape))
         array = tf.train.load_variable(tf_path, name)
         names.append(name)
         arrays.append(array)
 
     for name, array in zip(names, arrays):
-        print("Processing {}".format(name))
         name = name.split('/')
         # adam_v and adam_m are variables used in AdamWeightDecayOptimizer to calculated m and v
         # which are not required for using pretrained model
@@ -93,21 +92,17 @@ def load_tf_weights_in_bert(model, tf_checkpoint_path):
                 l = [m_name]
             if l[0] == 'kernel' or l[0] == 'gamma':
                 pointer = getattr(pointer, 'weight')
-                print("Pointing {} to weight".format(l[0]))
             elif l[0] == 'output_bias' or l[0] == 'beta':
                 pointer = getattr(pointer, 'bias')
-                print("Pointing {} to bias".format(l[0]))
             elif l[0] == 'output_weights':
                 pointer = getattr(pointer, 'weight')
-                print("Pointing {} to weight".format(l[0]))
             elif l[0] == 'squad':
                 pointer = getattr(pointer, 'classifier')
-                print("Pointing {} to classifier".format(l[0]))
             else:
                 try:
                     pointer = getattr(pointer, l[0])
                 except AttributeError:
-                    print("Skipping {}".format(l[0]))
+                    print("Skipping {}".format("/".join(name)))
                     continue
             if len(l) >= 2:
                 num = int(l[1])
