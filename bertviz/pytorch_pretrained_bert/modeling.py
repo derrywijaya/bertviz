@@ -105,9 +105,6 @@ def load_tf_weights_in_bert(model, tf_checkpoint_path):
                 except AttributeError:
                     print("Skipping {}".format("/".join(name)))
                     continue
-            if len(l) >= 2:
-                num = int(l[1])
-                pointer = pointer[num]
         if m_name[-11:] == '_embeddings':
             pointer = getattr(pointer, 'weight')
         elif m_name == 'kernel':
