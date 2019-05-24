@@ -107,7 +107,7 @@ def load_tf_weights_in_bert(model, tf_checkpoint_path):
                 try:
                     pointer = getattr(pointer, l[0])
                 except AttributeError:
-                    print("Skipping {}".format("/".join(name)))
+                    print("Skipping {}".format(l[0]))
                     continue
         if m_name[-11:] == '_embeddings':
             pointer = getattr(pointer, 'weight')
