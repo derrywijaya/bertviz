@@ -78,6 +78,7 @@ def load_tf_weights_in_bert(model, tf_checkpoint_path):
         arrays.append(array)
 
     for name, array in zip(names, arrays):
+        print("Hello {}".format(name))
         name = name.split('/')
         # adam_v and adam_m are variables used in AdamWeightDecayOptimizer to calculated m and v
         # which are not required for using pretrained model
@@ -97,7 +98,7 @@ def load_tf_weights_in_bert(model, tf_checkpoint_path):
             elif l[0] == 'output_weights':
                 pointer = getattr(pointer, 'weight')
             else:
-                print(l[0])
+                print("Hello again {}".format(l[0]))
                 pointer = getattr(pointer, l[0])
             if len(l) >= 2:
                 num = int(l[1])
