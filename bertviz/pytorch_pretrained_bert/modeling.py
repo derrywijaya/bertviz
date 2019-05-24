@@ -72,7 +72,7 @@ def load_tf_weights_in_bert(model, tf_checkpoint_path):
     names = []
     arrays = []
     for name, shape in init_vars:
-        print("Loading TF weight {} with shape {}".format(name, shape))
+        print("Loading TFW weight {} with shape {}".format(name, shape))
         array = tf.train.load_variable(tf_path, name)
         names.append(name)
         arrays.append(array)
@@ -92,7 +92,8 @@ def load_tf_weights_in_bert(model, tf_checkpoint_path):
                 l = [m_name]
             if l[0] == 'kernel' or l[0] == 'gamma':
                 pointer = getattr(pointer, 'weight')
-            elif l[0] == 'output_bias' or l[0] == 'beta':
+            #elif l[0] == 'output_bias' or l[0] == 'beta':
+            elif l[0] == 'beta':
                 pointer = getattr(pointer, 'bias')
             elif l[0] == 'output_weights':
                 pointer = getattr(pointer, 'weight')
